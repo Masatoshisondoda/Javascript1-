@@ -3,7 +3,8 @@ let player;
 let score = 0;
 let mySound;
 let BGM;
-let event;
+let count=0;
+
 function preload() {
   soundFormats('mp3', 'ogg');
   mySound = loadSound('wadaiko.mp3');
@@ -22,11 +23,9 @@ function setup() {
 
     coins = new Group();
     // 黄色の小さな矩形のコライトを10個作成して、コイングループに追加
-    for (let i = 0; i < 10; i++) {
-        let c = createSprite(random(100, width - 100), random(100, height - 100), 10, 10);
-        c.shapeColor = color(255, 255, 0);
-        coins.add(c);
-    }
+  
+  
+   
     
     // プレイヤー用の白い矩形
     player = createSprite(25, 25, 25, 25);
@@ -37,10 +36,37 @@ function setup() {
 
 function draw() {
     background(50);
+  
+  if(coins.length<2) {
+        
+     let c = createSprite(random(600, width - 100), random(600, height - 100), 80, 40);
+        c.shapeColor = color(255, 0, 255);
+        coins.add(c);
+        count=0.5;
+     
+    }
+  else if (coins.length<3){ 
+      
+        let c = createSprite(random(600, width - 100), random(600, height - 100), 80, 40);
+        c.shapeColor = color('#00ff00');
+        coins.add(c);
+        count=2;
+    }
+   else if (coins.length<4){ 
+      
+        let c = createSprite(random(600, width - 100), random(600, height - 100), 80, 40);
+        c.shapeColor = color(255, 255, 0);
+        coins.add(c);
+         count=4;
+    
+    }
+   
+  else{}
 
   for (let i = 0; i < coins.length; i++) {
         // 各スプライトを、そのスプライトの幅の1%だけ右に移動
-        coins[i].position.x += coins[i].width * 0.3;
+    
+        coins[i].position.x += coins[i].width * 0.02;
         const randomNumber1 = Math.floor(Math.random() * 600);
         // スケッチの右端まで到達したら、左端に移動 => 再び右に現れ移動を開始する
         if (coins[i].position.x > width) {
@@ -64,20 +90,11 @@ function draw() {
   // is equivalent to `userStartAudio()`
   mySound.play();
         // スコアを1増やす
-        score += 1;
+        score ++;
+        
     });
     drawSprites();
-   if(score==10) {for (let i = 0; i < 1; i++ ) {
-        let c = createSprite(random(600, width - 600), random(600, height - 600), 20, 20);
-        c.shapeColor = color(255, 255, 0);
-        coins.add(c);
-     if(score%20==0){
-       break;
-     }
-    }
-                  
-                  
-                                 }
+  
     if (BGM.isPlaying()) {
         text(score, width / 2, height / 2);
     }
