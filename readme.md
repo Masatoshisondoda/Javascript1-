@@ -18,3 +18,6 @@
 ・うまく処理が追いつかないことがあること（未解決）
 - ハマった経験は資産．
 - あとで自分で見返しても有用．
+
+URL
+https://masatoshisondoda.github.io/Javascript1-/
